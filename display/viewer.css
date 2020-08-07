@@ -1,0 +1,8 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ccc;
+}
+
+div#area{
+  font-size: 10em;
+}
