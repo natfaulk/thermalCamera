@@ -1,0 +1,8 @@
+div.canvas-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.canvas-inner {
+  padding: 10px;
+}
