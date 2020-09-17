@@ -17,7 +17,6 @@ const WS_PORT = 3001
 
   wss.on('connection', _ws => {
     logger('WS connection made.')
-    _ws.send('YEEEET')
     
     _ws.on('message', _data => {
       logger(`Received: ${_data}`)
