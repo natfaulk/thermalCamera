@@ -6,7 +6,7 @@ const Utils = require('./utils')
 
 const logger = require('@natfaulk/supersimplelogger')('Index')
 
-const DATA_DIR = 'data'
+const DATA_DIR = path.join(__dirname, '..', 'data')
 const FILE_PREFIX = 'sav'
 const MSG_HEADER = '[data] '
 
@@ -16,7 +16,7 @@ const MSG_HEADER = '[data] '
 
   Utils.mkdir_p(DATA_DIR)
   
-  let outputFile = getNextFile(path.join(__dirname, '..', DATA_DIR), FILE_PREFIX)
+  let outputFile = getNextFile(DATA_DIR, FILE_PREFIX)
   logger(`Creating output file: ${outputFile}`)
   outputStream = fs.createWriteStream(outputFile)
 
