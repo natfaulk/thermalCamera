@@ -38,6 +38,7 @@ void loop(void)
   {
     timer = millis();
     amg.readPixels(pixels);
+    float thermistor = amg.readThermistor();
 
     String out = "[data] {\"data\":[";
     for (uint16_t i = 0; i < AMG88xx_PIXEL_ARRAY_SIZE; i++)
@@ -47,7 +48,9 @@ void loop(void)
     }
     out += "],\"ID\":\"";
     out += UID;
-    out += "\"}";
+    out += "\",\"thermistor\":";
+    out += thermistor;
+    out += "}";
 
     Serial.println(out);
   }
