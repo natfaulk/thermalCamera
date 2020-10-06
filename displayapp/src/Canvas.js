@@ -26,15 +26,18 @@ class Canvas extends React.Component {
     )
 
     this.setState({d})
+
+    this.timer = setInterval(()=>{
+      let _d = this.state.d
+      if (_d !== null && this.props.data !== null) {
+        _d.background('black')
+        this.draw()
+      }
+    }, 1000/100)
   }
 
-  componentDidUpdate(_prevProps, _prevState) {
-    let _d = this.state.d
-    if (_d !== null && this.props.data !== null) {
-      _d.background('black')
-
-      this.draw()
-    }
+  componentWillUnmount() {
+    clearInterval(this.timer)
   }
 
   draw() {

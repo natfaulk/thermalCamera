@@ -10,7 +10,7 @@ const logger = makeLogger('App')
 let settings = {
   interpFactor: 5,
   thresholdVal: 2,
-  thresholdOn: true,
+  thresholdOn: false,
   numCalibVals: 20,
   tempRange: {min: 0, max: 5},
   camera: {width:8, height: 8},
@@ -77,19 +77,10 @@ class App extends React.Component {
         return
       }
   
-      if (
-        checkKeyHasVal(dataParsed, 'ID')
-        && !checkKeyHasVal(this.devices, dataParsed.ID)
-      ) {
-        this.addDevice(dataParsed.ID)
-      }
-  
-      if (
-        checkKeyHasVal(dataParsed, 'data') 
-        && checkKeyHasVal(this.devices, dataParsed.ID)
-      ) {
-        this.updateDeviceData(dataParsed)
-      }
+      if (!checkKeyHasVal(dataParsed, 'ID')) return
+      if (!checkKeyHasVal(dataParsed, 'data')) return
+      if (!checkKeyHasVal(this.devices, dataParsed.ID)) this.addDevice(dataParsed.ID)  
+      this.updateDeviceData(dataParsed)
     })
   
     ws.addEventListener('error', _event=> {
