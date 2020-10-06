@@ -22,7 +22,10 @@ const MSG_HEADER = '[data] '
 
   let ports = await SerialPort.list()
   ports.forEach(_port => {
-    if (_port.manufacturer === 'wch.cn') {
+    if (
+      _port.manufacturer === 'wch.cn'     // windows
+      || _port.manufacturer === '1a86'    // linux
+    ) {
       logger(`Found port ${_port.path}`)
       openPort(_port.path, outputStream)
     }
