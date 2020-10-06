@@ -12,6 +12,14 @@ const MSG_HEADER = '[data] '
 
 ;(async ()=>{
   logger('Process started')
+  
+  let timeToRecord = null
+  if (process.argv.length >= 3) 
+  {
+    timeToRecord = parseInt(process.argv[2])*1000
+    logger(`Setting record time to ${timeToRecord} seconds`)
+  } else logger('INFO: You can add an integer to the command line arguements to set the time to record in seconds. Defaults to forever otherwise')
+
   let outputStream = null
 
   Utils.mkdir_p(DATA_DIR)
@@ -27,14 +35,15 @@ const MSG_HEADER = '[data] '
       || _port.manufacturer === '1a86'    // linux
     ) {
       logger(`Found port ${_port.path}`)
-      openPort(_port.path, outputStream)
+      openPort(_port.path, outputStream, timeToRecord)
     }
   })
 
 })()
 
-function openPort(_path, _outputStream) {
+function openPort(_path, _outputStream, _timeToRecord) {
   logger(`Opening ${_path}...`)
+  let timerStarted = false
 
   let isThermoBoard = false
 
@@ -48,6 +57,16 @@ function openPort(_path, _outputStream) {
     logger(_data)
 
     if (isThermoBoard && _data.startsWith(MSG_HEADER)) {
+      if (!timerStarted) {
+        timerStarted = true
+        if (_timeToRecord !== null && _timeToRecord !== undefined) setTimeout(()=>{
+          port.close(_err => {
+            if (_err) logger(`Error closing port: ${_path}`)
+            else logger(`Closed port: ${_path}`)
+          })
+        }, _timeToRecord)
+      }
+
       if (_outputStream!==null) {
         _outputStream.write(`Time|${Date.now()}|`)
         _outputStream.write(_data)
