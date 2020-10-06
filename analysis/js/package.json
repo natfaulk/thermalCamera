@@ -1,0 +1,16 @@
+{
+  "name": "rtc_debug",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@natfaulk/supersimplelogger": "^1.0.2",
+    "moment": "^2.29.0",
+    "serialport": "^9.0.1"
+  }
+}
