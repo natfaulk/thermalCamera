@@ -60,10 +60,15 @@ function openPort(_path, _outputStream, _timeToRecord) {
       if (!timerStarted) {
         timerStarted = true
         if (_timeToRecord !== null && _timeToRecord !== undefined) setTimeout(()=>{
-          port.close(_err => {
-            if (_err) logger(`Error closing port: ${_path}`)
-            else logger(`Closed port: ${_path}`)
-          })
+          // tell device to stop sending data
+          port.write('e')
+          // give the port time to send through all its data
+          setTimeout(() => {
+            port.close(_err => {
+              if (_err) logger(`Error closing port: ${_path}`)
+              else logger(`Closed port: ${_path}`)
+            })
+          } , 200)
         }, _timeToRecord)
       }
 
