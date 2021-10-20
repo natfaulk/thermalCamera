@@ -1,0 +1,6 @@
+# FW for Custom AMG8833 PCB
+The hardware reuses a PCB which was designed for another project, but ultimately wasn’t needed. The PCB use an STM32f103 microcontroller and a CH340G serial to USB bridge. The board has a micro-USB port which is used for both power and data.  
+
+A GUI app can be found [here](https://github.com/natfaulk/thermal-logger)  
+
+This firmware uses an STM32 plugin for [Arduino](https://github.com/stm32duino/Arduino_Core_STM32)
